@@ -1,0 +1,39 @@
+module NavigationHelper
+
+  def navigation(html_options = nil, &proc)
+    raise ArgumentError, "Missing block" unless block_given?
+    if html_options
+      tag_options = create_tag_options(html_options)
+    else
+      tag_options = nil
+    end
+    concat("<ul#{tag_options}>", proc.binding)
+    yield self
+    concat('</ul>', proc.binding)
+  end
+
+  def active_tab(tab)
+    ' class="selected"' if tab.to_sym == @active_tab
+  end
+
+  def tab(name, options = {}, html_options = nil, *parameters_for_method_reference)
+    # if options[:controller].nil? || options[:action].nil?
+    #   raise ArgumentError, 'You must include a controller and action!'
+    # end
+    # give the li's a class if theres a child
+    klass = active_tab("#{options[:controller]}_#{options[:action]}")
+
+    li_contents = link_to(name, options, html_options, *parameters_for_method_reference)
+
+    "<li#{klass}>#{li_contents}</li>"
+  end
+
+  private
+  
+    def create_tag_options(html_options)
+      html_options = html_options.stringify_keys
+      convert_options_to_javascript!(html_options)
+      tag_options = tag_options(html_options)
+    end
+
+end
