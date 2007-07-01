@@ -22,7 +22,7 @@ module MetaHelper
     def keywords content
       tag :meta, {:name => 'keywords', :content => content}, @open
     end
-    
+
     def author content
       tag :meta, {:name => 'author', :content => content}, @open
     end
