@@ -17,7 +17,7 @@ module NavigationHelper
   end
 
   def tab(name, options = {}, html_options = nil, *parameters_for_method_reference, &proc)
-    if options[:controller].nil? || options[:action].nil?
+    if options.is_a?(Hash) && (options[:controller].nil? || options[:action].nil?)
       raise ArgumentError, 'You must include a controller and action!'
     end
     # give the li's a class if theres a child
