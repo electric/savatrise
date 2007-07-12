@@ -12,8 +12,8 @@ module NavigationHelper
     concat('</ul>', proc.binding)
   end
 
-  def active_tab(tab)
-    ' class="selected"' if tab.to_sym == @active_tab
+  def active_tab(tab, active = @active_tab)
+    ' class="selected"' if tab.to_sym == active
   end
 
   def tab(name, options = {}, html_options = nil, *parameters_for_method_reference, &proc)
@@ -21,11 +21,12 @@ module NavigationHelper
       raise ArgumentError, 'You must include a controller and action!'
     end
     # give the li's a class if theres a child
-    klass = active_tab("#{options[:controller]}_#{options[:action]}")
+    klass = active_tab "#{options[:controller]}_#{options[:action]}"
 
     li_contents = link_to(name, options, html_options, *parameters_for_method_reference)
 
     if block_given?
+      klass = active_tab @parent_tab, @parent_tab
       concat("<li#{klass}>#{li_contents}<ul>", proc.binding)
       yield self
       concat("</ul></li>", proc.binding)

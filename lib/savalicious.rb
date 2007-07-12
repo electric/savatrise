@@ -9,5 +9,10 @@ module Savalicious
     def set_active_tab tab_name
       @active_tab = tab_name.to_sym
     end
-  
+    
+    def set_parent_tab tab_name
+      @parent_tab = tab_name.to_sym
+    end
+    
+
 end
