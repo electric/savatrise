@@ -13,6 +13,7 @@ module NavigationHelper
   end
 
   def active_tab(tab, active = @active_tab)
+    return if tab.nil?
     ' class="selected"' if tab.to_sym == active
   end
 
@@ -26,7 +27,9 @@ module NavigationHelper
     li_contents = link_to(name, options, html_options, *parameters_for_method_reference)
 
     if block_given?
-      klass = active_tab @parent_tab, @parent_tab
+      parent_klass = active_tab @parent_tab, @parent_tab
+      klass = parent_klass unless parent_klass.nil?
+
       concat("<li#{klass}>#{li_contents}<ul>", proc.binding)
       yield self
       concat("</ul></li>", proc.binding)
