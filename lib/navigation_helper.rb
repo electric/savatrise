@@ -7,6 +7,8 @@ module NavigationHelper
     else
       tag_options = nil
     end
+
+    @rs = ActionController::Routing::Routes
     concat("<ul#{tag_options}>", proc.binding)
     yield self
     concat('</ul>', proc.binding)
@@ -14,7 +16,11 @@ module NavigationHelper
 
   def active_tab(tab, active = @active_tab)
     return if tab.nil?
-    ' class="selected"' if active.include?(tab.to_s)
+    if active.is_a?(Array)
+      ' class="selected"' if active.include?(tab.to_s)
+    else
+      ' class="selected"' if active == tab.to_s    
+    end
   end
 
   def tab(name, options = {}, html_options = nil, *parameters_for_method_reference, &proc)
@@ -22,15 +28,13 @@ module NavigationHelper
       raise ArgumentError, 'You must include a controller and action!'
     end
 
-    rs = ActionController::Routing::Routes
-
     # give the li's a class if theres a child
-    klass = active_tab rs.generate(options)
+    klass = active_tab @rs.generate(options)
 
     li_contents = link_to(name, options, html_options, *parameters_for_method_reference)
 
     if block_given?
-      parent_klass = active_tab(@parent_tab, @parent_tab)
+      parent_klass = active_tab parent_path, url_for(options)
       klass = parent_klass unless parent_klass.nil?
 
       concat("<li#{klass}>#{li_contents}<ul>", proc.binding)
@@ -47,6 +51,15 @@ module NavigationHelper
       html_options = html_options.stringify_keys
       convert_options_to_javascript!(html_options)
       tag_options = tag_options(html_options)
+    end
+    
+    def parent_path
+      if @parent_path.is_a?(Hash)
+        path = @rs.generate(@parent_path)
+      else
+        path = @parent_path
+      end
+      path
     end
 
 end
