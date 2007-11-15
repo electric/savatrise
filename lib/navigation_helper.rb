@@ -26,7 +26,7 @@ module NavigationHelper
   def tab(name, options = {}, html_options = nil, *parameters_for_method_reference, &proc)
 
     # give the li's a class if theres a child
-    klass = active_tab @rs.generate(options)
+    klass = active_tab(@rs.generate(options))
 
     li_contents = link_to(name, options, html_options, *parameters_for_method_reference)
 
