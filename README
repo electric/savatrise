@@ -20,3 +20,33 @@ e.g.
 </ul>
 
 assuming you're currently on the home page.
+
+This plugin can also handle multiple levels of navigation
+
+<% navigation(:id => 'primaryNav') do |nav| %>
+	<%= nav.tab 'Home', root_url, :title => 'Visit the Home page' %>
+	<% nav.tab 'Products', products_url, :title => 'Check out our products' do |product_nav| %>
+		<%= product_nav.tab 'Latest products', latest_products_url %>
+	<% end %>
+	<%= nav.tab 'Contact us', {:controller => 'content', :action => 'contact_us'}, :title => 'Send us an email' %>
+<% end %>
+
+assuming you're on the products page, the markup will end up looking like this:
+
+<ul id="primaryNav">
+	<li><a href="/" title="Visit the Home page">Home</a></li>
+	<li class="selected"><a href="/products" title="Check out our products">Products</a>
+	<ul>
+		<li><a href="/products/latest">Latest products</a></li>
+	</ul></li>
+	<li><a href="/content/contact_us" title="Send us an email">Contact us</a></li>
+</ul>
+
+Finally, meta data (that rubbish everyone stopped using about 3 years ago) can also be used in a similar way
+
+<% meta_tags do |meta| %>
+	<%= meta.description "You're a slow dude. Ham and Cheese" %>
+	<%= meta.keywords 'ham, cheese, slow, dude' %>
+<% end %>
+
+Currently working on tidying up the implementation of the meta class -- if anyone would like to help, it would be gladly appreciated

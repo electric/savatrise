@@ -3,7 +3,7 @@ module MetaHelper
   def meta_tags(options = {}, &proc)
     raise ArgumentError, "Missing block" unless block_given?
 
-    (!options[:html].nil?) ? @open = true : @open = false
+    @open = !options[:html].nil?
 
     yield self
 
