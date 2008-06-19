@@ -1,4 +1,22 @@
 Savatrise
 =========
 
-Description goes here
+The Savatrise plugin allows you to simply add those pesky selected classes into your navigations
+
+e.g.
+
+<% navigation(:id => 'primaryNav') do |nav| %>
+	<%= nav.tab 'Home', root_url, :title => 'Visit the Home page' %>
+	<%= nav.tab 'Products', products_url, :title => 'Check out our products' %>
+	<%= nav.tab 'Contact us', {:controller => 'content', :action => 'contact_us'}, :title => 'Send us an email' %>
+<% end %>
+
+..produces..
+
+<ul id="primaryNav">
+	<li class="selected"><a href="/" title="Visit the Home page">Home</a></li>
+	<li><a href="/products" title="Check out our products">Products</a></li>
+	<li><a href="/content/contact_us" title="Send us an email">Contact us</a></li>
+</ul>
+
+assuming you're currently on the home page.
