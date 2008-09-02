@@ -3,7 +3,7 @@ module Savalicious
   private
 
     def define_tab
-      set_active_tab(request.path)
+      set_active_tab(request.request_uri)
     end
 
     def set_active_tab(tab_name)
