@@ -1,7 +1,7 @@
-Savatrise
+<h1>Savatrise</h1>
 =========
 
-The Savatrise plugin allows you to simply add those pesky selected classes into your navigations
+<h3>The Savatrise plugin allows you to simply add those pesky selected classes into your navigations</h3>
 
 e.g.
 
@@ -19,9 +19,9 @@ e.g.
 	<li><a href="/content/contact_us" title="Send us an email">Contact us</a></li>
 </ul>
 
-assuming you're currently on the home page.
+<h3>Assuming you're currently on the home page.</h3>
 
-This plugin can also handle multiple levels of navigation
+<h3>This plugin can also handle multiple levels of navigation</h3>
 
 <% navigation(:id => 'primaryNav') do |nav| %>
 	<%= nav.tab 'Home', root_url, :title => 'Visit the Home page' %>
@@ -31,7 +31,7 @@ This plugin can also handle multiple levels of navigation
 	<%= nav.tab 'Contact us', {:controller => 'content', :action => 'contact_us'}, :title => 'Send us an email' %>
 <% end %>
 
-assuming you're on the products page, the markup will end up looking like this:
+<h3>Assuming you're on the products page, the markup will end up looking like this:</h3>
 
 <ul id="primaryNav">
 	<li><a href="/" title="Visit the Home page">Home</a></li>
@@ -42,7 +42,7 @@ assuming you're on the products page, the markup will end up looking like this:
 	<li><a href="/content/contact_us" title="Send us an email">Contact us</a></li>
 </ul>
 
-Finally, meta data (that rubbish everyone stopped using about 3 years ago) can also be used in a similar way
+<h3>Finally, meta data (that rubbish everyone stopped using about 3 years ago) can also be used in a similar way</h3>
 
 <% meta_tags do |meta| %>
 	<%= meta.description "You're a slow dude. Ham and Cheese" %>
